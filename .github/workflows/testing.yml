@@ -1,0 +1,14 @@
+name: Embold Testing
+
+on:
+ push:
+  branches:
+    - '*'
+
+
+jobs:
+   embold_scan_job:
+    runs-on: ubuntu-latest
+    name: Embold scan
+    steps:
+      - run: "curl -d 'repoBranchOrTag=${{github.ref_name}}&snapshotLabel=${{github.ref_name}}-scan' -H 'Authorization: Bearer ${{secrets.EMBOLD_ACCESS_TOKEN}}' -X POST ${{secrets.EMBOLD_URL}}/api/v1/repositories/${{secrets.REPO_UID}}/scan"
