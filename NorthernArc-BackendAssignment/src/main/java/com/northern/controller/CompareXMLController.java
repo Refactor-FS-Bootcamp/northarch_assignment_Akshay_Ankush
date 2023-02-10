@@ -22,18 +22,19 @@ import com.northern.service.CompareXMLService;
 @RestController
 @RequestMapping("/xml")
 public class CompareXMLController {
-	
+
 	@Autowired
 	private CompareXMLService service;
-	
+
 	@PostMapping("/compare")
-	private ResponseEntity<?> compareXML(@RequestParam("file1") MultipartFile xml1, @RequestParam("file2") MultipartFile xml2) throws ParserConfigurationException, SAXException, IOException, TransformerException{
-		StreamResult result=service.compareXML(xml1, xml2);
-		
-		ByteArrayOutputStream baos=(ByteArrayOutputStream) result.getOutputStream();
-		String xmlContent=baos.toString("UTF-8");
-		
-		return new ResponseEntity(xmlContent,HttpStatus.OK);
-		
+	private ResponseEntity<?> compareXML(@RequestParam("file1") MultipartFile xml1,
+			@RequestParam("file2") MultipartFile xml2)
+			throws ParserConfigurationException, SAXException, IOException, TransformerException {
+		StreamResult result = service.compareXML(xml1, xml2);
+
+		ByteArrayOutputStream baos = (ByteArrayOutputStream) result.getOutputStream();
+		String xmlContent = baos.toString("UTF-8");
+
+		return new ResponseEntity<String>(xmlContent, HttpStatus.OK);
 	}
 }
